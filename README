@@ -1,0 +1,26 @@
+ImageLoader-iOS does asynchronous loading of images from filesystem, pre scales them with highest quality and displays them inside UIImageView or any other component that accepts UIImage.
+Processing is done in background thread using GCD technique.
+To use simply add ImageLoader.h/m and UIImage+Resize.h/m to your project.
+
+Common use include any cases where [UIImage imageWithContentsOfFile:] is not applicable:
+- e.g. displaying image from filesystem inside your UITableViewCell (you need to create cell very fast, usually less than 16ms for smooth scrolling)
+
+Create ImageLoader instances by following rule: one processing queue per ImageLoader instance. Typically you need to create one ImageLoader per UIViewController.
+
+Code sample: 
+1. Create ImageLoader instance inside your ViewController's init method
+
+imageLoader = [[ImageLoader alloc] init];
+
+2. Use ImageLoader inside tableView:cellForRowAtIndexPath:
+
+[imageLoader displayImage:<path for image on the filesystem> inImageView:<UIImageView instance>]
+
+* you may want to set default image for UIImageView before calling [imageLoader displayImage:inImageView:]
+
+* you may also use extended method from ImageLoader: displayImage:inSize:contentMode:callbackTarget:callbackSelector:
+
+3. Release ImageLoader instance inside your ViewController's dealloc method
+
+[imageLoader release];
+
