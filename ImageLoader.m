@@ -16,7 +16,7 @@ static int instanceCount = 0;
     if (self = [super init]) {
         imagesCache = [[NSCache alloc] init];
         
-        loadingQueue = dispatch_queue_create([[NSString stringWithFormat:@"de.pz.pzipad.imageLoader[%d]", instanceCount++] UTF8String], NULL);
+        loadingQueue = dispatch_queue_create([[NSString stringWithFormat:@"com.github.kirillsh.imageLoader[%d]", instanceCount++] UTF8String], NULL);
     }
     return self;
 }
